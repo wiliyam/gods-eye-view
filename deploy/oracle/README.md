@@ -18,8 +18,9 @@ The local checkout's ignored `.deployment/credentials.txt` contains the login.
 It is owner-readable only. `.deployment/` also contains verification output
 and the Oracle firewall snapshot. These files must never be committed.
 
-`gods-eye-view.192.9.166.69.sslip.io` was used to verify HTTPS before the custom
-domain was configured. It uses the same login.
+The app is served only at `gv.arkbytetech.com`. The temporary sslip.io virtual
+host and certificate were removed after the custom domain became accessible.
+The HTTPS virtual host rejects other hostnames and direct-IP requests.
 
 ## Custom domain
 
