@@ -1,0 +1,35 @@
+[Unit]
+Description=Gods Eye View globe and data providers
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gev
+Group=gev
+WorkingDirectory=/opt/gods-eye-view/app
+Environment=NODE_ENV=production
+Environment=HOME=/var/lib/gods-eye-view
+Environment=PATH=/opt/gods-eye-view/runtime/node-v24.21.0-linux-arm64/bin:/usr/bin:/bin
+Environment=GEV_RATELIMIT_OPENAI_PER_MIN=10
+Environment=GEV_RATELIMIT_GOOGLE_PER_MIN=30
+ExecStart=/opt/gods-eye-view/runtime/node-v24.21.0-linux-arm64/bin/node node_modules/vite/bin/vite.js preview --host 127.0.0.1 --port 4173 --strictPort
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/gods-eye-view/app/.gev-cache /opt/gods-eye-view/app/.gev-logs /opt/gods-eye-view/app/node_modules/.vite-temp /var/lib/gods-eye-view
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+MemoryMax=2G
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target
